@@ -71,8 +71,8 @@ jobs:
       - checkout
       # Show current branch for debugging purposes
       - run:
-        name: Show Current Branch...
-        command: echo ${CIRCLE_BRANCH}
+          name: Show Current Branch...
+          command: echo ${CIRCLE_BRANCH}
       # Execute deployment
       - run:
           name: Deploy Origin Master to Heroku Master
