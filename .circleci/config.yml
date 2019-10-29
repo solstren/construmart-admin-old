@@ -49,9 +49,9 @@ jobs:
           command: yarn run lint
 
       # Test the Source Code
-      - run:
-          name: Testing Source Code...
-          command: yarn run test
+      # - run:
+      #     name: Testing Source Code...
+      #     command: yarn run test
 
       # run build
       - run:
