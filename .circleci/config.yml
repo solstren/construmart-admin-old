@@ -18,7 +18,13 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      # checkout code from branch into the working directory
       - checkout
+
+      # Show current branch for debugging purposes
+      - run:
+          name: Show Current Branch...
+          command: echo ${CIRCLE_BRANCH}
 
       # Download and cache dependencies
       - restore_cache:
@@ -27,30 +33,49 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
+      # Install project dependencies
+      - run:
+          name: Install Local Dependencies...
+          command: yarn install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      # Lint the Source Code
+      - run:
+          name: Linting Source Code...
+          command: yarn run lint
+
+      # Test the Source Code
+      # - run:
+      #     name: Testing Source Code...
+      #     command: yarn run test
+
       # run build
       - run:
-          name: Run Build
+          name: Run Build...
           command: yarn run build
 
-      # run tests!
-      - run:
-          name: Run tests
-          command: yarn test
+      # Cache dist folder for deploy job...
+      - save_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - dist
 
   deploy:
     docker:
       - image: buildpack-deps:trusty
     steps:
       - checkout
+      # Show current branch for debugging purposes
       - run:
-          name: Deploy Origin Review-Dev to Heroku Master
+          name: Show Current Branch...
+          command: echo ${CIRCLE_BRANCH}
+      # Execute deployment
+      - run:
+          name: Deploy Origin Master to Heroku Master
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
@@ -64,4 +89,4 @@ workflows:
             - build
           filters:
             branches:
-              only: review-dev
+              only: master
