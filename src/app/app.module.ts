@@ -13,6 +13,9 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { InventoryComponent } from './pages/inventory/inventory.component';
 import {DataTablesModule} from 'angular-datatables';
 import {FormsModule} from '@angular/forms';
+import {UtilitiesService} from './shared/services/utilities.service';
+import {CategoriesService} from './shared/services/categories.service';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,9 +33,10 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     DataTablesModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [UtilitiesService, CategoriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
