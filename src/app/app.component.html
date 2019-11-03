@@ -1,21 +1,107 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<section class="vbox" *ngIf="url != '/login'" >
+  <header class="bg-dark dk header navbar navbar-fixed-top-xs">
+    <div class="navbar-header aside-md">
+      <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html"> <i class="fa fa-bars"></i> </a>
+      <a href="#" class="navbar-brand" data-toggle="fullscreen"><i class="fa fa-shopping-cart icon"></i><img  class="m-r-sm">Construmart</a>
+      <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user"> <i class="fa fa-cog"></i> </a>
+    </div>
+    <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="thumb-sm avatar pull-left"> <img src="assets/images/avatar.jpg"> </span> John.Smith <b class="caret"></b> </a>
+        <ul class="dropdown-menu animated fadeInRight"> <span class="arrow top"></span>
+          <li> <a routerLink="settings">Settings</a> </li>
+          <li> <a routerLink="profile">Profile</a> </li>
+          <li class="divider"></li>
+          <li> <a routerLink="logout">Logout</a> </li>
+        </ul>
+      </li>
+    </ul>
+  </header>
+  <section>
+    <section class="hbox stretch">
+      <!-- .aside -->
+      <aside class="bg-light lter b-r aside-md hidden-print hidden-xs" id="nav">
+        <section class="vbox">
+          <header class="header bg-primary lter text-center clearfix">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-dark btn-icon" title="New project"><i class="fa fa-plus"></i></button>
+              <div class="btn-group hidden-nav-xs">
+                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"> Switch Project <span class="caret"></span> </button>
+                <ul class="dropdown-menu text-left">
+                  <li><a href="#">Project</a></li>
+                  <li><a href="#">Another Project</a></li>
+                  <li><a href="#">More Projects</a></li>
+                </ul>
+              </div>
+            </div>
+          </header>
+          <section class="w-f scrollable">
+            <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
+              <!-- nav -->
+              <nav class="nav-primary hidden-xs">
+                <ul class="nav">
+                  <li>
+                    <a routerLink="dashboard">
+                      <i class="fa fa-dashboard icon"> <b class="bg-danger"></b></i>
+                      <span>Dashboard</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a routerLink="categories">
+                      <i class="fa fa-table icon"> <b class="bg-info"></b></i>
+                      <span>Categories</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a routerLink="products">
+                      <i class="fa fa-trash-o icon"> <b class="bg-primary"></b></i>
+                      <span>Products</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a routerLink="orders">
+                      <i class="fa fa-inbox icon"> <b class="bg-gradient"></b></i>
+                      <span>Orders</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a routerLink="inventory">
+                      <i class="fa fa-inbox icon"> <b class="bg-gradient"></b></i>
+                      <span>Inventory</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a routerLink="drivers">
+                      <i class="fa fa-truck icon"> <b class="bg-dark"></b></i>
+                      <span>Drivers</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <!-- / nav -->
+            </div>
+          </section>
+          <footer class="footer lt hidden-xs b-t b-light">
+            <a class="pull-right btn btn-sm btn-icon btn-version"> v1.0 </a>
+            <div class="btn-group hidden-nav-xs">
+              <div class="text-center padder" style="margin-top: 6px; padding-left: 0">
+                <p>
+                  <small style="">©2019 Construmart</small>
+                </p>
+              </div>
+            </div>
+          </footer>
+        </section>
+      </aside>
+      <!-- /.aside -->
+      <section id="content">
+        <router-outlet></router-outlet>
+        <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen, open" data-target="#nav,html"></a>
+      </section>
+    </section>
+  </section>
+</section>
 
-<router-outlet></router-outlet>
+<div *ngIf="url == '/login'">
+  <router-outlet></router-outlet>
+</div>

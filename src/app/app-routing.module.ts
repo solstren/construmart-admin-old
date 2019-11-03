@@ -1,7 +1,55 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {ProductsComponent} from './pages/products/products.component';
+import {CategoriesComponent} from './pages/categories/categories.component';
+import {OrdersComponent} from './pages/orders/orders.component';
+import {LoginComponent} from './pages/auth/login/login.component';
+import {RegisterComponent} from './pages/auth/register/register.component';
+import {InventoryComponent} from './pages/inventory/inventory.component';
+import {DriversComponent} from './pages/drivers/drivers.component';
 
-const routes: Routes = [];
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'products',
+    component: ProductsComponent
+  },
+  {
+    path: 'categories',
+    component: CategoriesComponent
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent
+  },
+  {
+    path: 'inventory',
+    component: InventoryComponent
+  },
+  {
+    path: 'drivers',
+    component: DriversComponent
+  }
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
