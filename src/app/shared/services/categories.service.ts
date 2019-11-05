@@ -12,12 +12,19 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
 
-  // @ts-ignore
   public getCategories(): Observable<any> {
-    return this.http.get(this.baseUrl + '');
+    return this.http.get(this.baseUrl + 'categories');
   }
 
   public postCategory(data: Object) {
     return this.http.post(this.baseUrl + 'categories', data);
+  }
+
+  public deleteCategory(id: number) {
+    return this.http.delete(this.baseUrl + 'categories/' + id);
+  }
+
+  public updateCategory(data: any) {
+    return this.http.put(this.baseUrl + 'categories/' + data.id, data);
   }
 }

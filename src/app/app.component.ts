@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {filter} from 'rxjs/operators';
+import {UtilitiesService} from './shared/services/utilities.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent {
   public url: string;
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private utils: UtilitiesService) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
@@ -26,22 +27,20 @@ export class AppComponent {
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.url = event.url;
-      // this.utils.showLoading();
-      // console.log(this.url);
+      this.utils.showLoading();
     }
     if (event instanceof NavigationEnd) {
-      console.log(this.url);
-      // this.utils.hideLoading();
+      this.utils.hideLoading();
 
     }
     // Set loading state to false in both of the below events to hide the spinner in case a request fails
     if (event instanceof NavigationCancel) {
-      // this.utils.hideLoading();
-      console.log(this.url);
+      this.utils.hideLoading();
+      // console.log(this.url);
     }
     if (event instanceof NavigationError) {
-      // this.utils.hideLoading();
-      console.log(this.url);
+      this.utils.hideLoading();
+      // console.log(this.url);
     }
   }
 }

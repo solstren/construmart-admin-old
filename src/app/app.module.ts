@@ -16,6 +16,9 @@ import {FormsModule} from '@angular/forms';
 import {UtilitiesService} from './shared/services/utilities.service';
 import {CategoriesService} from './shared/services/categories.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {CategoriesResolver} from './shared/resolvers/construmart.resolver';
+import {ConstantsService} from './shared/services/constants.service';
+import {NotificationService} from './shared/services/notification.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UtilitiesService, CategoriesService],
+  providers: [UtilitiesService, CategoriesService, CategoriesResolver, ConstantsService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

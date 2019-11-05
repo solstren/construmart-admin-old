@@ -14,4 +14,12 @@ export class UtilitiesService {
       $(id).modal('hide');
     }
   }
+
+  showLoading(): void{
+    $('#loading-overlay').show();
+  }
+
+  hideLoading(): void{
+    $('#loading-overlay').fadeOut(500);
+  }
 }
