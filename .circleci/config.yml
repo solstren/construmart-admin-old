@@ -44,9 +44,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # Lint the Source Code
-      - run:
-          name: Linting Source Code...
-          command: yarn run lint
+#      - run:
+#          name: Linting Source Code...
+#          command: yarn run lint
 
       # Test the Source Code
       # - run:

@@ -1,0 +1,152 @@
+<section class="vbox">
+  <header class="header bg-white b-b b-light">
+    <p>Products</p>
+    <div class="top-right-btns-container">
+      <div class="btn-group" role="group" aria-label="...">
+        <a class="btn btn-info" (click)="showModal()">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+  <section class="wrapper">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb">
+          <li><a routerLink="/dashboard"> Dashboard</a></li>
+          <li>Products</li>
+        </ul>
+      </div>
+
+      <div class="col-md-12">
+        <section class="panel panel-default">
+          <header class="panel-heading"> DataTables <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data." data-original-title="" title=""></i> </header>
+          <div class="table-responsive">
+            <table class="data-table table table-striped m-b-none" id="data-table">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Created On</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let product of products; let i = index ;">
+                <td>{{ i+1 }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.categoryName }}</td>
+                <td>{{ product.price | cm_money_format }}</td>
+                <td>{{ product.dateCreated | date: 'dd-MM-yyyy' }}</td>
+                <td>
+                  <a class="btn btn-rounded btn-sm btn-icon btn-info" (click)="showModal(product)">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a class="btn btn-rounded btn-sm btn-icon btn-danger margin-left-15" (click)="showDeleteModal(product.id)">
+                    <i class="fa fa-trash-o"></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!--Save or edit product-->
+<div class="modal fade" id="product-modal" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="panel panel-default">
+      <header class="panel-heading"> {{ saveFormMode }} Product </header>
+      <div class="panel-body">
+        <form class="form-horizontal" id="form-products">
+          <div class="form-group">
+            <label class="col-lg-3 control-label required-field">Name</label>
+            <div class="col-lg-7">
+              <input type="text" name="name" class="form-control" [(ngModel)]="product.name" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label required-field">Category</label>
+            <div class="col-lg-7">
+              <select class="form-control" name="categoryId" id="select-category" required>
+                <option></option>
+                <option value="{{ category.id }}" [selected]="product.category" *ngFor="let category of categories">{{ category.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label required-field">Price</label>
+            <div class="col-lg-7">
+              <input type="number" name="price" class="form-control" [(ngModel)]="product.price">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label required-field">Description</label>
+            <div class="col-lg-7">
+              <textarea [(ngModel)]="product.description" name="description" class="form-control parsley-validated" rows="4"></textarea>
+            </div>
+          </div>
+
+
+
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label required-field">Photo</label>
+            <div class="col-sm-7" style="text-align: center">
+              <div class="img-placeholder id product-photo-placeholder" id="img-placeholder-2">
+                <img id="product-photo" *ngIf="productPhoto != null" src="{{productPhoto}}">
+              </div>
+              <div class="select-btn-container">
+                <input type="file" class="custom-file-input" accept="image/*" id="productPhoto"
+                       name="imageFile" [(ngModel)]="product.imageFile">
+                <span class="select-image-btn" onclick="$('#productPhoto').click();">Select Photo</span>
+                <span class="select-image-btn margin-left-15" id="productPhotoClear">Clear</span>
+                <p class="photo-spec">Accepted formats: .jpg, .png, .jpeg</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-9">
+              <button type="button" data-dismiss="modal" class="btn btn-default m-r-sm">Cancel</button>
+              <button type="button" (click)="saveProduct(saveFormMode)" class="btn ">{{saveFormButton}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Prompt delete-->
+<div class="modal fade" id="delete-product-modal" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="panel panel-danger">
+      <header class="panel-heading"> Delete Product </header>
+      <div class="panel-body">
+        <p>Are you sure you want to delete this product?</p>
+        <span class="divider"></span>
+        <div class="form-group">
+          <div class="col-lg-offset-3 col-lg-9">
+            <button type="button" data-dismiss="modal" class="btn btn-default m-r-sm" (click)="clear()">Cancel</button>
+            <button type="button" (click)="deleteProduct(productDeleteId)" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
