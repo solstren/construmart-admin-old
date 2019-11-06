@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 })
 export class CategoriesService {
 
-  baseUrl: string = environment.baseUrl;
+  baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +24,8 @@ export class CategoriesService {
     return this.http.delete(this.baseUrl + 'categories/' + id);
   }
 
-  public updateCategory(data: any) {
-    return this.http.put(this.baseUrl + 'categories/' + data.id, data);
+  public updateCategory(data: any, id: number) {
+    console.log(data);
+    return this.http.put(this.baseUrl + 'categories/' + id, data);
   }
 }

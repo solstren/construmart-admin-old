@@ -16,9 +16,10 @@ import {FormsModule} from '@angular/forms';
 import {UtilitiesService} from './shared/services/utilities.service';
 import {CategoriesService} from './shared/services/categories.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {CategoriesResolver} from './shared/resolvers/construmart.resolver';
+import {CategoriesResolver, ProductsResolver} from './shared/resolvers/construmart.resolver';
 import {ConstantsService} from './shared/services/constants.service';
 import {NotificationService} from './shared/services/notification.service';
+import {MoneyFormat} from './shared/pipes/construmart.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {NotificationService} from './shared/services/notification.service';
     DriversComponent,
     LoginComponent,
     RegisterComponent,
-    InventoryComponent
+    InventoryComponent,
+    MoneyFormat
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,13 @@ import {NotificationService} from './shared/services/notification.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UtilitiesService, CategoriesService, CategoriesResolver, ConstantsService, NotificationService],
+  providers: [
+    UtilitiesService,
+    CategoriesService,
+    CategoriesResolver,
+    ConstantsService,
+    NotificationService,
+    ProductsResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

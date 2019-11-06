@@ -22,6 +22,7 @@ export class CategoriesComponent implements OnInit {
   categories: any = {};
   categoryPhoto: any = null;
 
+  categoryUpdateId: number;
   categoryDeleteId: number;
 
   constructor(private utils: UtilitiesService, private categoriesService: CategoriesService, private route: ActivatedRoute, private consts: ConstantsService) { }
@@ -69,16 +70,20 @@ export class CategoriesComponent implements OnInit {
           this.utils.hideLoading();
         });
       } else {
-          this.categoriesService.updateCategory(formData).subscribe((response: any) => {
+          this.categoriesService.updateCategory(formData, this.categoryUpdateId).subscribe((response: any) => {
             if (response.status === true) {
-
+              this.utils.hideLoading();
+              this.utils.modalToggle(false, '#category-modal');
+              toastr.success(response.message);
             } else {
               this.utils.hideLoading();
+              this.utils.modalToggle(false, '#category-modal');
               toastr.error(response.message);
             }
 
           }, error => {
             toastr.error('Something went wrong');
+            this.utils.modalToggle(false, '#category-modal');
             this.utils.hideLoading();
           });
       }
@@ -93,6 +98,7 @@ export class CategoriesComponent implements OnInit {
       this.categoryPhoto = environment.baseUrl + 'uploads/' + this.category.imageName;
       this.saveFormButton = 'Update';
       this.saveFormMode = 'Edit';
+      this.categoryUpdateId = data.id;
     } else {
       this.category = {};
       this.saveFormMode = 'New';
@@ -113,10 +119,21 @@ export class CategoriesComponent implements OnInit {
   deleteCategory(id: number) {
     this.utils.showLoading();
     this.categoriesService.deleteCategory(id).subscribe(
-      response => {
+      (response: any) => {
+        if (response.status === true) {
+          this.utils.hideLoading();
+          this.utils.modalToggle(false, '#delete-category-modal');
+          toastr.success('Category deleted successfully');
+        } else {
+          this.utils.hideLoading();
+          this.utils.modalToggle(false, '#delete-category-modal');
+          toastr.error('Something went wrong');
+        }
+
+      }, error => {
         this.utils.hideLoading();
-        console.log(response);
         this.utils.modalToggle(false, '#delete-category-modal');
+        toastr.error('Something went wrong');
       }
     );
   }

@@ -1,6 +1,5 @@
-// // alert("hello");
-// $(function () {
-//   $('#docc').DataTable({
-//     responsive: true
-//   })
-// });
+$(document).ready(function () {
+  $('#data-table').DataTable();
+});
+
+
