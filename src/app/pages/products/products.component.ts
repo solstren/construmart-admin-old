@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {UtilitiesService} from '../../shared/services/utilities.service';
 import { ProductsService } from '../../shared/services/products.service';
 import {ActivatedRoute} from '@angular/router';
-import {ConstantsService} from '../../shared/services/constants.service';
 import {environment} from '../../../environments/environment';
 import {CategoriesService} from '../../shared/services/categories.service';
 

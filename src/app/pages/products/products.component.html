@@ -1,64 +1,64 @@
-<section class="vbox">
-  <header class="header bg-white b-b b-light">
-    <p>Products</p>
-    <div class="top-right-btns-container">
-      <div class="btn-group" role="group" aria-label="...">
-        <a class="btn btn-info" (click)="showModal()">
-          <i class="fa fa-plus-circle"></i>
-        </a>
-      </div>
+<!--<section class="vbox">-->
+<header class="header bg-white b-b b-light">
+  <p>Products</p>
+  <div class="top-right-btns-container">
+    <div class="btn-group" role="group" aria-label="...">
+      <a class="btn btn-info" (click)="showModal()">
+        <i class="fa fa-plus-circle"></i>
+      </a>
     </div>
-  </header>
-  <section class="wrapper">
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="breadcrumb">
-          <li><a routerLink="/dashboard"> Dashboard</a></li>
-          <li>Products</li>
-        </ul>
-      </div>
+  </div>
+</header>
+<section class="wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="breadcrumb">
+        <li><a routerLink="/dashboard"> Dashboard</a></li>
+        <li>Products</li>
+      </ul>
+    </div>
 
-      <div class="col-md-12">
-        <section class="panel panel-default">
-          <header class="panel-heading"> DataTables <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data." data-original-title="" title=""></i> </header>
-          <div class="table-responsive">
-            <table class="data-table table table-striped m-b-none" id="data-table">
-              <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Created On</th>
-                <th>Action</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let product of products; let i = index ;">
-                <td>{{ i+1 }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.categoryName }}</td>
-                <td>{{ product.price | cm_money_format }}</td>
-                <td>{{ product.dateCreated | date: 'dd-MM-yyyy' }}</td>
-                <td>
-                  <a class="btn btn-rounded btn-sm btn-icon btn-info" (click)="showModal(product)">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <a class="btn btn-rounded btn-sm btn-icon btn-danger margin-left-15" (click)="showDeleteModal(product.id)">
-                    <i class="fa fa-trash-o"></i>
-                  </a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
+    <div class="col-md-12">
+      <section class="panel panel-default">
+        <header class="panel-heading"> DataTables <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data." data-original-title="" title=""></i> </header>
+        <div class="table-responsive">
+          <table class="data-table table table-striped m-b-none" id="data-table">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Created On</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of products; let i = index ;">
+              <td>{{ i+1 }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.categoryName }}</td>
+              <td>{{ product.price | cm_money_format }}</td>
+              <td>{{ product.dateCreated | date: 'dd-MM-yyyy' }}</td>
+              <td>
+                <a class="btn btn-rounded btn-sm btn-icon btn-info" (click)="showModal(product)">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a class="btn btn-rounded btn-sm btn-icon btn-danger margin-left-15" (click)="showDeleteModal(product.id)">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
-  </section>
+  </div>
 </section>
+<!--</section>-->
 
 <!--Save or edit product-->
 <div class="modal fade" id="product-modal" role="dialog">
