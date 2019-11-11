@@ -7,12 +7,12 @@
     </div>
     <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="thumb-sm avatar pull-left"> <img src="assets/images/avatar.jpg"> </span> John.Smith <b class="caret"></b> </a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="thumb-sm avatar pull-left"> <img src="assets/images/avatar.jpg"> </span> John Doe <b class="caret"></b> </a>
         <ul class="dropdown-menu animated fadeInRight"> <span class="arrow top"></span>
-          <li> <a routerLink="settings">Settings</a> </li>
-          <li> <a routerLink="profile">Profile</a> </li>
+          <li> <a routerLink="/settings">Settings</a> </li>
+          <li> <a routerLink="/profile">Profile</a> </li>
           <li class="divider"></li>
-          <li> <a routerLink="logout">Logout</a> </li>
+          <li> <a routerLink="/login">Logout</a> </li>
         </ul>
       </li>
     </ul>
@@ -22,18 +22,8 @@
       <!-- .aside -->
       <aside class="bg-light lter b-r aside-md hidden-print hidden-xs sidebar-container" id="nav">
         <section class="vbox">
-          <header class="header bg-primary lter text-center clearfix">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-dark btn-icon" title="New project"><i class="fa fa-plus"></i></button>
-              <div class="btn-group hidden-nav-xs">
-                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"> Switch Project <span class="caret"></span> </button>
-                <ul class="dropdown-menu text-left">
-                  <li><a href="#">Project</a></li>
-                  <li><a href="#">Another Project</a></li>
-                  <li><a href="#">More Projects</a></li>
-                </ul>
-              </div>
-            </div>
+          <header class="header bg-light lter text-center clearfix">
+            <p style="font-size: 14px;"><strong>Navigation</strong></p>
           </header>
           <section class="w-f scrollable">
             <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px">
@@ -116,3 +106,4 @@
   </div>
 </div>
 <!--/ loading overlay -->
+

@@ -13,17 +13,17 @@ import {CategoriesResolver, ProductsResolver} from './shared/resolvers/construma
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
     path: 'login',
     component: LoginComponent
   },
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
   },
   {
     path: 'dashboard',
