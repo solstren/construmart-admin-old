@@ -1,7 +1,13 @@
 
-html,body,.hbox,.vbox{height:100% !important;}
+html,body,.hbox,.vbox{height:94.9vh !important;}
 /* You can add global styles to this file, and also import other style files */
 
+.footer-2 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+}
 
 /* peek-a-bar */
 .peek-a-bar {
