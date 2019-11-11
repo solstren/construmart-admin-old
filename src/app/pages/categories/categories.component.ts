@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UtilitiesService} from '../../shared/services/utilities.service';
 import {CategoriesService} from '../../shared/services/categories.service';
 import {ActivatedRoute} from '@angular/router';
 import {ConstantsService} from '../../shared/services/constants.service';
 import {environment} from '../../../environments/environment';
+import {Subject} from 'rxjs';
+import {DataTableDirective} from 'angular-datatables';
 
 declare var $: any;
 declare var toastr: any;
@@ -14,7 +16,11 @@ declare var toastr: any;
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: any = {};
 
   saveFormMode: string;
   saveFormButton: string;
@@ -32,13 +38,22 @@ export class CategoriesComponent implements OnInit {
     this.saveFormButton = 'Save';
 
     this.categories = this.route.snapshot.data['categories'].body;
-    console.log(this.categories);
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-      // serverSide: true,
+      serverSide: true,
       processing: true,
-      dom: 'Bfrtip'
+      ajax: (request: any, callback) => {
+        this.categoriesService.getCategories().subscribe(data => {
+          console.log(data);
+          this.categories = data.body;
+          callback({
+            recordsTotal: data.recordsTotal,
+            recordsFiltered: data.recordsFiltered,
+            data: [],
+          });
+        });
+      }
     };
 
     $('#img-placeholder-2').imagepreview({
@@ -59,6 +74,7 @@ export class CategoriesComponent implements OnInit {
             this.utils.hideLoading();
             this.category = {};
             this.hideModal();
+            this.reloadTable();
             $('#categoryPhotoClear').click();
             toastr.success(response.message);
           } else {
@@ -73,6 +89,7 @@ export class CategoriesComponent implements OnInit {
           this.categoriesService.updateCategory(formData, this.categoryUpdateId).subscribe((response: any) => {
             if (response.status === true) {
               this.utils.hideLoading();
+              this.reloadTable();
               this.utils.modalToggle(false, '#category-modal');
               toastr.success(response.message);
             } else {
@@ -121,6 +138,7 @@ export class CategoriesComponent implements OnInit {
     this.categoriesService.deleteCategory(id).subscribe(
       (response: any) => {
         if (response.status === true) {
+          this.reloadTable();
           this.utils.hideLoading();
           this.utils.modalToggle(false, '#delete-category-modal');
           toastr.success('Category deleted successfully');
@@ -142,5 +160,15 @@ export class CategoriesComponent implements OnInit {
     this.category = {};
     this.categoryPhoto = null;
     $('#categoryPhotoClear').click();
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  reloadTable(): void{
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.draw();
+    });
   }
 }
