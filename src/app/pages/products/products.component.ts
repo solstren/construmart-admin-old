@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UtilitiesService} from '../../shared/services/utilities.service';
 import { ProductsService } from '../../shared/services/products.service';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {CategoriesService} from '../../shared/services/categories.service';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
 
 declare var $: any;
 declare var toastr: any;
@@ -14,8 +16,11 @@ declare var toastr: any;
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
 
-  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: any = {};
 
   saveFormMode: string;
   saveFormButton: string;
@@ -38,13 +43,23 @@ export class ProductsComponent implements OnInit {
     this.categoriesService.getCategories().subscribe(data => {
       this.categories = data.body;
     });
-    console.log(this.categories);
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-      // serverSide: true,
+      serverSide: true,
       processing: true,
-      dom: 'Bfrtip'
+      ajax: (request: any, callback) => {
+        this.productsService.getProducts().subscribe(data => {
+          console.log(data);
+          this.products = data.body;
+          callback({
+            recordsTotal: data.recordsTotal,
+            recordsFiltered: data.recordsFiltered,
+            data: [],
+          });
+        });
+      }
     };
 
     $('#img-placeholder-2').imagepreview({
@@ -65,6 +80,7 @@ export class ProductsComponent implements OnInit {
             this.utils.hideLoading();
             this.product = {};
             this.hideModal();
+            this.reloadTable();
             $('#productPhotoClear').click();
             toastr.success(response.message);
           } else {
@@ -80,6 +96,7 @@ export class ProductsComponent implements OnInit {
           if (response.status === true) {
             this.utils.hideLoading();
             this.utils.modalToggle(false, '#product-modal');
+            this.reloadTable();
             toastr.success(response.message);
           } else {
             this.utils.hideLoading();
@@ -128,6 +145,7 @@ export class ProductsComponent implements OnInit {
       (response: any) => {
         if (response.status === true) {
           this.utils.hideLoading();
+          this.reloadTable();
           this.utils.modalToggle(false, '#delete-product-modal');
           toastr.success('Product deleted successfully');
         } else {
@@ -148,6 +166,16 @@ export class ProductsComponent implements OnInit {
     this.product = {};
     this.productPhoto = null;
     $('#productPhotoClear').click();
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  reloadTable(): void{
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.draw();
+    });
   }
 
 }
