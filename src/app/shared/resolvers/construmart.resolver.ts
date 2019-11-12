@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {Observable} from 'rxjs';
 import {CategoriesService} from '../services/categories.service';
 import {ProductsService} from '../services/products.service';
+import {InventoriesService} from '../services/inventories.service';
 
 @Injectable()
 export class CategoriesResolver implements Resolve<Observable<any[]>> {
@@ -20,3 +21,10 @@ export class ProductsResolver implements Resolve<Observable<any[]>> {
   }
 }
 
+@Injectable()
+export class InventoriesResolver implements Resolve<Observable<any[]>> {
+  constructor(private inventoriesService: InventoriesService) {}
+  public resolve(): Observable<any[]> {
+    return this.inventoriesService.getInventories();
+  }
+}
