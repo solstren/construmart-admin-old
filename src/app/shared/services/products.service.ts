@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
+import {DataService} from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class ProductsService {
 
   baseUrl: string = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
-  public getProducts(): Observable<any> {
-    return this.http.get(this.baseUrl + 'products');
+  public getProducts(req): Observable<any> {
+    return this.dataService.getList(this.baseUrl + 'products', req);
   }
 
   public postProduct(data: Object) {

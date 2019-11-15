@@ -8,7 +8,7 @@ import {LoginComponent} from './pages/auth/login/login.component';
 import {RegisterComponent} from './pages/auth/register/register.component';
 import {InventoryComponent} from './pages/inventory/inventory.component';
 import {DriversComponent} from './pages/drivers/drivers.component';
-import {CategoriesResolver, InventoriesResolver, ProductsResolver} from './shared/resolvers/construmart.resolver';
+// import {CategoriesResolver, InventoriesResolver, ProductsResolver} from './shared/resolvers/construmart.resolver';
 
 
 const routes: Routes = [
@@ -32,16 +32,16 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsComponent,
-    resolve: {
+    /*resolve: {
       products: ProductsResolver
-    }
+    }*/
   },
   {
     path: 'categories',
     component: CategoriesComponent,
-    resolve: {
+    /*resolve: {
       categories: CategoriesResolver
-    }
+    }*/
   },
   {
     path: 'orders',
@@ -50,9 +50,9 @@ const routes: Routes = [
   {
     path: 'inventory',
     component: InventoryComponent,
-    resolve: {
+    /*resolve: {
       inventories: InventoriesResolver
-    }
+    }*/
   },
   {
     path: 'drivers',

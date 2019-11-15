@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit {
   saveFormMode: string;
   saveFormButton: string;
   product: any = {};
-  products: any = {};
+  products: any = [];
   categories: any = [];
   productPhoto: any = null;
 
@@ -38,21 +38,24 @@ export class ProductsComponent implements OnInit {
     this.saveFormMode = 'New';
     this.saveFormButton = 'Save';
 
-    this.products = this.route.snapshot.data['products'].body;
+    // this.products = this.route.snapshot.data['products'].body;
 
-    this.categoriesService.getCategories().subscribe(data => {
-      this.categories = data.body;
-    });
+    // this.categoriesService.getCategories().subscribe(data => {
+    //   this.categories = data.body;
+    // });
 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
+      language: {
+        emptyTable: 'No data available'
+      },
       ajax: (request: any, callback) => {
-        this.productsService.getProducts().subscribe(data => {
+        this.productsService.getProducts(request).subscribe(data => {
           console.log(data);
-          this.products = data.body;
+          this.products = data.data;
           callback({
             recordsTotal: data.recordsTotal,
             recordsFiltered: data.recordsFiltered,

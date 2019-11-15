@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {DataService} from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class InventoriesService {
 
   baseUrl: string = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
-  public getInventories(): Observable<any> {
-    return this.http.get(this.baseUrl + 'inventories');
+  public getInventories(req): Observable<any> {
+    return this.dataService.getList(this.baseUrl + 'inventories', req);
   }
 
   public postInventory(data: Object) {

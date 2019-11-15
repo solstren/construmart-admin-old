@@ -23,10 +23,8 @@ export class InventoryComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   dtOptions: any = {};
 
-  saveFormMode: string;
-  saveFormButton: string;
   inventory: any = {};
-  inventories: any = {};
+  inventories: any = [];
   inventoryPhoto: any = null;
 
   inventoryUpdateId: number;
@@ -36,16 +34,20 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit() {
 
-    this.inventories = this.route.snapshot.data['inventories'].body;
+    // this.inventories = this.route.snapshot.data['inventories'].body;
     console.log(this.inventories);
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
+      language: {
+        emptyTable: 'No data available'
+      },
       ajax: (request: any, callback) => {
-        this.inventoriesService.getInventories().subscribe(data => {
-          this.inventories = data.body;
+        this.inventoriesService.getInventories(request).subscribe(data => {
+          console.log(data);
+          this.inventories = data.data;
           callback({
             recordsTotal: data.recordsTotal,
             recordsFiltered: data.recordsFiltered,
