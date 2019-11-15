@@ -37,15 +37,14 @@ export class CategoriesComponent implements OnInit {
     this.saveFormMode = 'New';
     this.saveFormButton = 'Save';
 
-    this.categories = this.route.snapshot.data['categories'].body;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
       ajax: (request: any, callback) => {
-        this.categoriesService.getCategories().subscribe(data => {
-          console.log(data);
+        this.categoriesService.getCategories(request).subscribe(data => {
+          // console.log(data);
           this.categories = data.body;
           callback({
             recordsTotal: data.recordsTotal,
