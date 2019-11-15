@@ -44,9 +44,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # Lint the Source Code
-      - run:
-          name: Linting Source Code...
-          command: yarn run lint
+#      - run:
+#          name: Linting Source Code...
+#          command: yarn run lint
 
       # Test the Source Code
       # - run:
@@ -75,7 +75,7 @@ jobs:
           command: echo ${CIRCLE_BRANCH}
       # Execute deployment
       - run:
-          name: Deploy Origin Master to Heroku Master
+          name: Deploy Origin review-dev to Heroku Master
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
@@ -89,4 +89,4 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only: review-dev
