@@ -59,8 +59,8 @@ export class DataService {
       console.log(data);
       if (data.status == true) {
         return {
-          recordsTotal: data.total,
-          recordsFiltered: data.total,
+          recordsTotal: data.body.totalCount,
+          recordsFiltered: data.body.totalCount,
           data: data.body,
           draw: 5
         };
