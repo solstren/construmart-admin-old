@@ -28,4 +28,8 @@ export class InventoriesService {
   public updateInventory(data: any, id: number) {
     return this.http.put(this.baseUrl + 'inventories/' + id, data);
   }
+
+  public inventoryHistory(req): Observable<any> {
+    return this.dataService.getList(this.baseUrl + 'inventory-history', req);
+  }
 }

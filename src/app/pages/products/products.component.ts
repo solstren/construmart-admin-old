@@ -32,12 +32,13 @@ export class ProductsComponent implements OnInit {
   productUpdateId: number;
   productDeleteId: number;
 
-  constructor(private utils: UtilitiesService, private productsService: ProductsService, private route: ActivatedRoute, private categoriesService: CategoriesService) { }
+  constructor(private utils: UtilitiesService, private productsService: ProductsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.saveFormMode = 'New';
     this.saveFormButton = 'Save';
 
+    this.categories = this.route.snapshot.data['categories'].data.categories;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -47,7 +48,7 @@ export class ProductsComponent implements OnInit {
         emptyTable: 'No data available'
       },
       ajax: (request: any, callback) => {
-        this.productsService.getProducts(request).subscribe(data => {``
+        this.productsService.getProducts(request).subscribe(data => {
           this.products = data.data.products;
           callback({
             recordsTotal: data.recordsTotal,

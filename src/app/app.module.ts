@@ -16,10 +16,10 @@ import {FormsModule} from '@angular/forms';
 import {UtilitiesService} from './shared/services/utilities.service';
 import {CategoriesService} from './shared/services/categories.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-// import {CategoriesResolver, InventoriesResolver, ProductsResolver} from './shared/resolvers/construmart.resolver';
 import {ConstantsService} from './shared/services/constants.service';
 import {NotificationService} from './shared/services/notification.service';
 import {MoneyFormat} from './shared/pipes/construmart.pipe';
+import {CategoriesResolver} from './shared/resolvers/construmart.resolver';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import {MoneyFormat} from './shared/pipes/construmart.pipe';
   providers: [
     UtilitiesService,
     CategoriesService,
-    // CategoriesResolver,
+    CategoriesResolver,
     ConstantsService,
     NotificationService,
     // ProductsResolver,
