@@ -24,7 +24,7 @@ export class DataService {
   public getList(url: string, request: any): Observable<any> {
     if (request == null) {
     } else {
-      const page = request.start; // > 0 ? (request.start / request.length) : request.start;
+      const page = request.start / 10; // > 0 ? (request.start / request.length) : request.start;
       url += `?offset=${page}&limit=${request.length}&`;
       // const columns = request.columns;
 

@@ -21,10 +21,14 @@ export class InventoryComponent implements OnInit {
   dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject();
+  dtTriggerTwo: Subject<any> = new Subject();
   dtOptions: any = {};
+  dtOptionsTwo: any = {};
 
   inventory: any = {};
+  inventoryObj: any = {};
   inventories: any = [];
+  inventoryHistory: any = [];
   inventoryPhoto: any = null;
 
   inventoryUpdateId: number;
@@ -34,8 +38,6 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.inventories = this.route.snapshot.data['inventories'].body;
-    console.log(this.inventories);
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -47,7 +49,27 @@ export class InventoryComponent implements OnInit {
       ajax: (request: any, callback) => {
         this.inventoriesService.getInventories(request).subscribe(data => {
           console.log(data);
-          this.inventories = data.data;
+          this.inventories = data.data.inventory;
+          callback({
+            recordsTotal: data.recordsTotal,
+            recordsFiltered: data.recordsFiltered,
+            data: [],
+          });
+        });
+      }
+    };
+
+    this.dtOptionsTwo = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      language: {
+        emptyTable: 'No data available'
+      },
+      ajax: (request: any, callback) => {
+        this.inventoriesService.inventoryHistory(request).subscribe(data => {
+          this.inventoryHistory = data.data.inventoryHistory;
           callback({
             recordsTotal: data.recordsTotal,
             recordsFiltered: data.recordsFiltered,
@@ -61,8 +83,16 @@ export class InventoryComponent implements OnInit {
   updateInventory() {
     if ($('#form-inventories').smkValidate()) {
       this.utils.showLoading();
-      console.log(this.inventory);
-        this.inventoriesService.postInventory(this.inventory).subscribe((response: any) => {
+      Object.assign(this.inventoryObj, this.inventory);
+      delete this.inventoryObj.dateCreated;
+      delete this.inventoryObj.dateUpdated;
+      delete this.inventoryObj.productName;
+      delete this.inventoryObj.id;
+
+      this.inventoryObj.currentPrice = parseInt(this.inventoryObj.currentPrice);
+      this.inventoryObj.initialPrice = parseInt(this.inventoryObj.initialPrice);
+      this.inventoryObj.productId = parseInt(this.inventoryObj.productId);
+      this.inventoriesService.updateInventory(this.inventoryObj, this.inventoryObj.productId).subscribe((response: any) => {
           if (response.status === true) {
             this.utils.hideLoading();
             this.inventory = {};
@@ -81,7 +111,6 @@ export class InventoryComponent implements OnInit {
   }
 
   showModal(data: any) {
-    console.log(data);
       this.inventory = data;
       this.inventoryUpdateId = data.id;
     this.utils.modalToggle(true, '#inventory-modal');
@@ -119,14 +148,9 @@ export class InventoryComponent implements OnInit {
     );
   }
 
-  clear() {
-    this.inventory = {};
-    this.inventoryPhoto = null;
-    $('#inventoryPhotoClear').click();
-  }
-
   ngAfterViewInit(): void {
     this.dtTrigger.next();
+    this.dtTriggerTwo.next();
   }
 
   reloadTable(): void{

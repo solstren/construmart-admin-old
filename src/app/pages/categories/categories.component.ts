@@ -25,7 +25,7 @@ export class CategoriesComponent implements OnInit {
   saveFormMode: string;
   saveFormButton: string;
   category: any = {};
-  categories: any = {};
+  categories: any = [];
   categoryPhoto: any = null;
 
   categoryUpdateId: number;
@@ -44,8 +44,8 @@ export class CategoriesComponent implements OnInit {
       processing: true,
       ajax: (request: any, callback) => {
         this.categoriesService.getCategories(request).subscribe(data => {
-          // console.log(data);
-          this.categories = data.body;
+          console.log(data);
+          this.categories = data.data.categories;
           callback({
             recordsTotal: data.recordsTotal,
             recordsFiltered: data.recordsFiltered,
