@@ -28,6 +28,7 @@
               <th>#</th>
               <th>Name</th>
               <th>Description</th>
+              <th>Tag</th>
               <th>Category</th>
               <th>Price</th>
               <th>Created On</th>
@@ -39,6 +40,7 @@
               <td>{{ i+1 }}</td>
               <td>{{ product.name }}</td>
               <td>{{ product.description }}</td>
+              <td>{{ product.tag?.name }}</td>
               <td>{{ product.categoryName }}</td>
               <td>{{ product.price | cm_money_format }}</td>
               <td>{{ product.dateCreated | date: 'dd-MM-yyyy' }}</td>
@@ -75,11 +77,21 @@
           </div>
 
           <div class="form-group">
+            <label class="col-lg-3 control-label">Tag</label>
+            <div class="col-lg-7">
+            <select class="form-control" name="tagId" id="select-tag" required>
+              <option></option>
+              <option value="{{ tag.id }}" [selected]="product.tag?.id == tag.id" *ngFor="let tag of tags">{{ tag.name }}</option>
+            </select>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="col-lg-3 control-label required-field">Category</label>
             <div class="col-lg-7">
               <select class="form-control" name="categoryId" id="select-category" required>
                 <option></option>
-                <option value="{{ category.id }}" [selected]="product.category" *ngFor="let category of categories">{{ category.name }}</option>
+                <option value="{{ category.id }}" [selected]="category.id == product.categoryId" *ngFor="let category of categories">{{ category.name }}</option>
               </select>
             </div>
           </div>
@@ -87,19 +99,16 @@
           <div class="form-group">
             <label class="col-lg-3 control-label required-field">Price</label>
             <div class="col-lg-7">
-              <input type="number" name="price" class="form-control" [(ngModel)]="product.price">
+              <input type="number" name="price" class="form-control" [(ngModel)]="product.price" required>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-lg-3 control-label required-field">Description</label>
             <div class="col-lg-7">
-              <textarea [(ngModel)]="product.description" name="description" class="form-control parsley-validated" rows="4"></textarea>
+              <textarea [(ngModel)]="product.description" name="description" class="form-control parsley-validated" rows="4" required></textarea>
             </div>
           </div>
-
-
-
 
           <div class="form-group">
             <label class="col-sm-3 control-label required-field">Photo</label>
@@ -116,7 +125,6 @@
               </div>
             </div>
           </div>
-
 
           <div class="form-group">
             <div class="col-lg-offset-3 col-lg-9">

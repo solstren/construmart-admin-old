@@ -28,4 +28,8 @@ export class ProductsService {
   public updateProduct(data: any, id: number) {
     return this.http.put(this.baseUrl + 'products/' + id, data);
   }
+
+  public getTags(): Observable<any> {
+    return this.http.get(this.baseUrl + 'tags');
+  }
 }

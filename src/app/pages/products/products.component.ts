@@ -27,6 +27,7 @@ export class ProductsComponent implements OnInit {
   product: any = {};
   products: any = [];
   categories: any = [];
+  tags: any = [];
   productPhoto: any = null;
 
   productUpdateId: number;
@@ -39,6 +40,8 @@ export class ProductsComponent implements OnInit {
     this.saveFormButton = 'Save';
 
     this.categories = this.route.snapshot.data['categories'].data.categories;
+    this.tags = this.route.snapshot.data['tags'].body;
+    console.log(this.tags);
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,

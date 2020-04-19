@@ -19,7 +19,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {ConstantsService} from './shared/services/constants.service';
 import {NotificationService} from './shared/services/notification.service';
 import {MoneyFormat} from './shared/pipes/construmart.pipe';
-import {CategoriesResolver} from './shared/resolvers/construmart.resolver';
+import {CategoriesResolver, TagsResolver} from './shared/resolvers/construmart.resolver';
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import {CategoriesResolver} from './shared/resolvers/construmart.resolver';
     CategoriesResolver,
     ConstantsService,
     NotificationService,
+    TagsResolver
     // ProductsResolver,
     // InventoriesResolver
   ],

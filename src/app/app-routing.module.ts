@@ -8,7 +8,7 @@ import {LoginComponent} from './pages/auth/login/login.component';
 import {RegisterComponent} from './pages/auth/register/register.component';
 import {InventoryComponent} from './pages/inventory/inventory.component';
 import {DriversComponent} from './pages/drivers/drivers.component';
-import {CategoriesResolver} from './shared/resolvers/construmart.resolver';
+import {CategoriesResolver, TagsResolver} from './shared/resolvers/construmart.resolver';
 
 
 const routes: Routes = [
@@ -33,7 +33,8 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
     resolve: {
-      categories: CategoriesResolver
+      categories: CategoriesResolver,
+      tags: TagsResolver
     }
   },
   {
