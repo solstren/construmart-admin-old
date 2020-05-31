@@ -14,6 +14,11 @@ export class AppComponent {
 
 
   constructor(private router: Router, private utils: UtilitiesService) {
+    if (localStorage.getItem('token')) {
+
+    } else {
+      location.href = '/login';
+    }
     this.router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
@@ -42,5 +47,10 @@ export class AppComponent {
       this.utils.hideLoading();
       // console.log(this.url);
     }
+  }
+
+  logout() {
+    localStorage.clear();
+    location.href = 'login';
   }
 }
